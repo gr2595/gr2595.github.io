@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3: Test of formatted axis values</title>
+		<script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+		<style type="text/css">
+			.axis path,
+            .axis line {
+                stroke: #2C58A4;
+                shape-rendering: crispEdges;
+                stroke-width: 2px;
+                opacity: .7;
+            }
+            .axis text {
+                font-family: helvetica;
+                font-size: 12px;
+                fill: #197EC4;
+            }
+            
+            /* No style rules here yet */
+		</style>
+	</head>
+	<body>
+        <div id="commuting"></div>
+        
+		<script type="text/javascript">
+
+    /*
+    THE OLD VERSION I USED IN CLASS
+          d3.csv("inClassSurveyData.csv",function(data){
+              drawCommute(data)
+          })*/
+    
+
+
+    //THE NEW SYNTAX THAT IS REQUIRED
+    d3.csv("inClassSurveyData.csv")
+    .then(function(data) {
+        drawCommute(data)
+    })
+    .catch(function(error){
+        //THIS area is for in case of an error loading your data
+        //we are not using it now
+    })
+            
+    //drawing the circles
+    function drawCommute(data){
+    
+        var w = 900
+        var h = 400
+        var padding = 30
+        var r = 5
+        var svg = d3.select("#commuting")
+            .append("svg")
+            .attr("width",w)
+            .attr("height",h)
+    
+        //the linear scale declaration
+        var xScale = d3.scaleLinear()
+        .domain([0, d3.max(data, function(d) {
+            return d.commute
+        })])
+        .range([padding,w-padding])
+        
+        
+        //the circles' areas declaration
+        var aScale = d3.scaleSqrt()
+            .domain([0, d3.max(data, function(d) { return d.commute })])
+            .range([0,10]);
+
+       
+        //the circles' color/fill declaration
+        var fillScale = d3.scaleLinear()
+            .domain([0, d3.max(data, function(d) {
+                return d.commute })])
+            .range(['#2C58A4','#197EC4'])
+        
+        //the x-axis declaration
+        var xAxis = d3.axisBottom(xScale)
+        
+        
+        svg.selectAll("circle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx",function(d,i){
+                //then we apply the scale 
+                //we apply the x scale to the commute value and return it
+                return  xScale(d.commute)
+            })
+            .attr("cy",h/2)//set y of circles at half of height
+            .attr("r", function(d) {
+                return aScale(d.commute)
+        })
+            .style("fill", function(d) {
+                return fillScale(d.commute)
+        })
+            .style("opacity",.7)
+        
+        svg.append("g")
+            .attr("transform", "translate(0," + (h - padding) + ")")
+            .attr("class", "axis")
+            .call(xAxis)
+        
+        //for HW:
+        //add another scale to a different dimension such as r, or color, opacity.
+        //please add a axis to it after you read chapter 8.
+        
+       
+            
+          
+		</script>
+	</body>
+</html>
