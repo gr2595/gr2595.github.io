@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>data manipulation</title><!-- make your own with https://www.favicon.cc/-->
+        <link href="../favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+		<style type="text/css">
+            body{font-family:helvetica;}
+            #button0{border:2px solid #e6194B; border-radius:5px;padding:5px; text-align: center;display: inline-block;margin: 5px;}
+            #button1{border:2px solid #f58231; border-radius:5px;padding:5px;white-space: nowrap;text-align: center;display: inline-block;margin: 5px;}
+            #button2{border:2px solid #ffe119; border-radius:5px;padding:5px;text-align: center;display: inline-block;margin: 5px;}
+            #button3{border:2px solid #bfef45; border-radius:5px;padding:5px;text-align: center;display: inline-block;margin: 5px;}
+            #button4{border:2px solid #3cb44b; border-radius:5px;padding:5px;text-align: center;display: inline-block;margin: 5px;}
+            #button5{border:2px solid #42d4f4; border-radius:5px;padding:5px;text-align: center;display: inline-block; margin: 5px;}
+            #button6{border:2px solid #4363d8; border-radius:5px;padding:5px;text-align: center;display: inline-block;margin: 5px;}
+            #button7{border:2px solid #911eb4; border-radius:5px;padding:5px;text-align: center;display: inline-block;margin: 5px;}
+            #button8{border:2px solid #f032e6; border-radius:5px;padding:5px;text-align: center;display: inline-block;margin: 5px;}
+            #button9{border:2px solid #9A6324; border-radius:5px;padding:5px;text-align: center;display: inline-block;margin: 5px;}
+            #chart1{padding:10px;}
+            #title{}
+		</style>
+	</head>
+    <div id="title">Click to See Your Neighborhood!</div>
+    <div id="button0">Central Harlem</div> 
+    <div id="button1">Chelsea & Hell's Kitchen</div>
+    <div id="button2">East Harlem</div>
+    <div id="button3">Gramercy Park & Murray Hill</div>
+    <div id="button4">Greenwich Village & Soho</div>
+    <div id="button5">Lower Manhattan</div>
+    <div id="button6">Lower East Side</div>
+    <div id="button7">Upper East Side</div>
+    <div id="button8">Upper West Side</div>
+    <div id="button9">Inwood & Washington Heights</div>
+    <div id="chart1"></div>
+	<body>
+		<script type="text/javascript"> 
+            //added a button above in the html
+            //already had some css in the head section to style button
+            //SCROLL TO THE BOTTOM FOR YOUR HOMEWORK
+            d3.csv("neighborhoodData.csv")
+            .then(function(data){
+                
+                //below we call the chart 5 times, each with a different column, and we will see 5 charts, 1 for each column
+                drawChart(data,"Central Harlem")
+                d3.selectAll("circle")
+                    .attr("fill","#e6194B")
+                    d3.selectAll("text")
+                    .attr("fill","#e6194B")
+                
+                //here we select the button
+                d3.select("#button0")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Central Harlem")//we update the data in the chart to column c3
+                    d3.selectAll("circle")
+                    .attr("fill","#e6194B")
+                    d3.selectAll("text")
+                    .attr("fill","#e6194B")
+                })
+                
+                d3.select("#button1")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Chelsea & Hell's Kitchen")//we update the data in the chart to column c2
+                    d3.selectAll("circle")
+                    .attr("fill","#f58231")
+                    d3.selectAll("text")
+                    .attr("fill","#f58231")
+                })
+                
+                 d3.select("#button2")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"East Harlem")//we update the data in the chart to column c3
+                    d3.selectAll("circle")
+                        .attr("fill","#ffe119")
+                    d3.selectAll("text")
+                    .attr("fill","#ffe119")
+                })
+                
+                 d3.select("#button3")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Gramercy Park & Murray Hill")//we update the data in the chart to column c3
+                    d3.selectAll("circle")
+                        .attr("fill","#bfef45")
+                    d3.selectAll("text")
+                    .attr("fill","#bfef45")
+                })
+                
+                 d3.select("#button4")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Greenwich Village & Soho")//we update the data in the chart to column c3
+                    d3.selectAll("circle") 
+                    .attr("fill","#3cb44b")
+                    d3.selectAll("text")
+                    .attr("fill","#3cb44b")
+                })
+                
+                d3.select("#button5")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Lower Manhattan")//we update the data in the chart to column c3
+                    d3.selectAll("circle") 
+                    .attr("fill","#42d4f4")
+                    d3.selectAll("text")
+                    .attr("fill","#42d4f4")
+                })
+                
+                d3.select("#button6")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Lower East Side")//we update the data in the chart to column c3
+                    d3.selectAll("circle") 
+                    .attr("fill","#4363d8")
+                    d3.selectAll("text")
+                    .attr("fill","#4363d8")
+                })
+                
+                d3.select("#button7")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Upper East Side")//we update the data in the chart to column c3
+                    d3.selectAll("circle") 
+                    .attr("fill","#911eb4")
+                    d3.selectAll("text")
+                    .attr("fill","#911eb4")
+                })
+                
+                d3.select("#button8")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Upper West Side")//we update the data in the chart to column c3
+                    d3.selectAll("circle") 
+                    .attr("fill","#f032e6")
+                    d3.selectAll("text")
+                    .attr("fill","#f032e6")
+                })
+                
+                d3.select("#button9")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Inwood & Washington Heights")//we update the data in the chart to column c3
+                    d3.selectAll("circle") 
+                    .attr("fill","#9A6324")
+                    d3.selectAll("text")
+                    .attr("fill","#9A6324")
+                })
+            })
+            .catch(function(error){ console.log("error")})
+            
+            //this function with drawing code is the same all the way through
+            function drawChart(data,column){
+                var w = 800
+                var h = 300
+                var padding = 50
+                
+                var svg = d3.select("#chart1")
+                            .append("svg")
+                            .attr("width",w+padding*2)
+                            .attr("height",h+padding*2);
+                
+                var xScale = d3.scaleBand().domain(["January","February","March","April", "May","June","July","August","September","October","November","December"]).range([0,w]);
+                
+                var xAxis = d3.axisBottom()
+                    .scale(xScale);
+                
+                svg.append("g")
+    				.attr("class", "axis")
+                    .attr("transform", "translate("+padding+"," + (h + 20) + ")")
+                    .call(xAxis);
+                
+                var yScale = d3.scaleLinear().domain([0,550]).range([h,0]);
+                
+                var yAxis = d3.axisLeft()
+                    .scale(yScale);    
+                
+                svg.append("g")
+                    .attr("class", "axis")
+    				.attr("transform", "translate("+padding+",20)")
+    				.call(yAxis);   
+                
+                svg.selectAll("circle")
+                    .data(data)
+                    .enter()
+                    .append("circle")
+                    .attr("cy",function(d){
+                        return yScale(d[column])+20
+                    })
+                    .attr("cx",function(d,i){
+                        return xScale(d.month)+(padding*1.69)
+                    })
+                    .attr("r",5)
+                    .attr("fill","#197EC4")
+                
+                svg.selectAll(".label")
+                    .data(data)
+                    .enter()
+                    .append("text")
+                    .attr("class","label")
+                    .text(function(d){
+                        return d[column]})
+                    .attr("y",function(d){
+                        return yScale(d[column])+10
+                    })
+                    .attr("x",function(d,i){
+                        return xScale(d.month)+(padding*1.69)
+                    })
+                }
+                
+                
+                //START PAYING ATTENTION HERE
+                //new function for updating the data column
+                //a second function updating the data, the same as above making the circles 
+                //but instead of appending new bars, we select the existing and transform those.    
+                function updateChart(data,column){
+                    var w = 800
+                    var h = 300
+                    var padding = 50
+                    var yScale = d3.scaleLinear().domain([0,550]).range([h,0])
+                    var xScale = d3.scaleBand().domain(["January","February","March","April","May","June","July","August","September","October","November","December"]).range([0,w])
+                
+                    d3.selectAll("circle")
+                            .data(data)//data
+                            .transition()//transition, starting it here
+                            .delay(100)
+                            .duration(1250)//we are changing the circles over 1 second.
+                            .attr("cy",function(d){
+                                return yScale(d[column])+20//we are using a new column dictated by what you pass in when you call the function
+                            })
+                            .attr("cx",function(d,i){
+                                return xScale(d.month)+(padding*1.69)//still catagorized by borough
+                            })
+
+                        
+                    d3.selectAll(".label")
+                        .data(data)
+                            .transition()
+                            .delay(100)
+                            .duration(1250)
+                            .text(function(d){
+                                return d[column]})
+                            .attr("y",function(d){
+                                return yScale(d[column])+10
+                            })
+                            .attr("x",function(d,i){
+                                return xScale(d.month)+(padding*1.69)
+                            })
+                    
+                    }
+        //you will notice there is a lot of repetitiveness in the code, we will address that later. For now we write out everything for clarity
+		
+        //TODO: 3 things
+          
+          //part 1          
+        //the sample dataset has 5 value columns, c1 to c5, make 5 buttons that when clicked the chart transforms to that data
+        
+        //STEPS:
+        //Make a button for each column in your html
+        //select and add an click to each button, where the data will transform to using that column when clicked.
+        
+        //HINT: you will just be working in the html part and the portion within .then at the top. All the other code has already been written
+        
+          //part 2
+        //use duration and delay to animate the transitions better in the updateChart function
+        
+        //part 3
+        //also change the color as the transition occurs, a different color for each column
+        //HINT: 
+        //you will need to add a 3rd parameter to the updateChart function, 
+        //change that attribute to the things to change in the function
+        //and also call it with a different color each time.
+        
+        
+        </script>
+	</body>
+</html>
