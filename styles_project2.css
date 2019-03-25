@@ -1,0 +1,52 @@
+            .nav{
+              background: #333
+            }
+            button{
+              background: #333 !important;
+              margin-bottom: 10px;
+              width: 70%;
+              padding: 8px;
+              font-size: 1em;
+              color: #fff;
+              border: 0;
+              border-radius: 4px;
+              cursor: pointer;
+            }
+            button.central_harlem{
+                background: #e6194B !important;
+            }
+            button.chelsea_hk{
+                background:#f58231 !important; 
+            }
+            button.east_harlem{
+                background:#ffe119 !important;
+            }
+            button.gp_mh{
+                background:#bfef45 !important;
+            }
+            button.gv_soho{
+                background:#3cb44b !important;
+            }
+            button.lower_mn{
+                background:#42d4f4 !important;
+            }
+            button.lower_eastside{
+                background:#4363d8 !important;
+            }
+            button.upper_eastside{
+                background:#911eb4 !important;
+            }
+            button.upper_westside{
+                background:#f032e6 !important;
+            }
+            button.inwood_wh{
+                background:#9A6324 !important;
+            }
+            button.active{
+              background: #333333 !important;
+            }
+            form span{
+              color: #00bfa5 !important;
+            }
+
+
