@@ -45,8 +45,9 @@
             button.active{
               background: #333333 !important;
             }
-            form span{
-              color: #00bfa5 !important;
-            }
+#axis{
+    fill: grey
+}
+
 
 

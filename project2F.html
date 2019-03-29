@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<meta charset="utf-8">
+		<title>Project 2 WIP</title><!-- make your own with https://www.favicon.cc/-->
+        <link href="../favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+        <link rel="stylesheet" href="styles_project2.css">
+        <title>Project 2 WIP</title>
+        <script type="text/javascript" src="https://d3js.org/d3.v3.js"></script>
+    
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+  #chart1{padding:0px;}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #333333;
+  shape-rendering: crispEdges;
+}
+
+/*
+.x.axis path {
+  display: none;
+}
+*/
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+    
+.legend {
+    
+    }
+    
+#buttons{
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;            
+    }
+    
+</style>
+</head>
+
+	<body class="white">
+
+    <div class="nav z-depth-0">
+      <div class="section center">
+        <h3 class="white-text center"> 311 Vehicle Complaints in 2019 </h3>
+      </div> 
+    </div>
+      
+    <div class="section center">
+      <p>Click buttons to compare Manhattan Neighborhoods!</p>
+    </div>
+        
+    <div class="section center">
+      <div class="row">
+
+        <div id="chart1"></div>
+
+      </div>
+    </div>
+
+
+
+<script>
+
+var margin = {top: 20, right: 350, bottom: 30, left: 50},
+    width = 1000 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+var parseDate = d3.time.format("%Y%m%d").parse;
+
+var x = d3.time.scale()
+    .range([0, width]);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var color = d3.scale.category10();
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+var line = d3.svg.line()
+    .interpolate("basis")
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.complaints); });
+
+var svg = d3.select("#chart1").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  
+      
+var filterData={"Central Harlem":false,"Chelsea & Hell's Kitchen":false,"East Harlem":false,"Gramercy Park & Murray Hill":false,"Greenwich Village & Soho":false,"Lower Manhattan":false,"Lower East Side":false,"Upper East Side":false,"Upper West Side":false,"Inwood & Washington Heights":false,};//neighborhoods to be shown
+
+function drawChart(filterData){
+d3.tsv("data2.txt", function(error, data) {
+  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
+
+  data.forEach(function(d) {
+    d.date = parseDate(d.date);
+  });
+
+  var hoods = color.domain().map(function(name) {
+    return {
+      name: name,
+      values: data.map(function(d) {
+        return {date: d.date, complaints: +d[name]};
+      })
+    };
+  });
+  
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+
+  y.domain([
+    d3.min(hoods, function(c) { return d3.min(c.values, function(v) { return v.complaints; }); }),
+    d3.max(hoods, function(c) { return d3.max(c.values, function(v) { return v.complaints; }); })
+  ]);
+  svg.selectAll("*").remove();
+  
+    
+    
+//LEGEND
+  var legend = svg.selectAll('g')
+      .data(hoods)
+      .enter()
+      .append('g')
+      .attr('class', 'legend');
+    
+  legend.append('rect')
+      .attr('x', width + 175)
+      .attr('y', function(d, i){ return (i *  30) + 30 })
+      .attr('width', 150)
+      .attr('height', 20)
+      .style('fill', function(d) { 
+        return color(d.name);
+      })
+      .attr('class', 'buttons');
+      
+      
+  legend.append('text')
+      .attr('x', width + 180)
+      .attr('y', function(d, i){ return (i *  30) + 44;})
+      .text(function(d){ return d.name; });
+
+  legend
+  		.on("click",function(d){
+  				//filter data		
+  				//filterData[d.name]=!filterData[d.name];
+  				reDraw(d.name);
+    });
+
+ 
+    	
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("# of Complaints");
+   
+  var boo=hoods.filter(function(d){return filterData[d.name]==true;});
+  console.log("filter");
+  console.log(boo);
+  
+  var hood = svg.selectAll(".hood")
+      .data(hoods.filter(function(d){return filterData[d.name]==true;})) //.filter(function(d){return filterData[d.name]==true;})
+      .enter().append("g");
+    //  .attr("class", "city");
+      
+     console.log(hood);  
+      svg.selectAll(".hood")
+      .data(hoods.filter(function(d){return filterData[d.name]==true;}))//.filter(function(d){return filterData[d.name]==true;})
+      .append("g")
+      .attr("class", "hood");
+      
+      svg.selectAll(".hood")
+      .data(hoods.filter(function(d){return filterData[d.name]==true;}))
+      .exit()
+      .remove();
+  
+  hood.append("path")
+      .attr("class", "line")
+      .attr("d", function(d) { return line(d.values); })
+      .style("stroke", function(d) { return color(d.name); });
+
+  hood.append("text")
+      .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+      .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.complaints) + ")"; })
+      .attr("x", 3)
+      .attr("dy", ".35em")
+      .text(function(d) { return d.name; });
+    svg.selectAll(".hood")
+      .data(hoods.filter(function(d){return filterData[d.name]==true;}))
+      .exit()
+      .remove();
+});
+}
+console.log(filterData);
+drawChart(filterData);
+function reDraw(name){
+	
+	filterData[name]=!filterData[name];
+	console.log("redraw :");
+	console.log(filterData);
+	drawChart(filterData);
+}
+
+</script>
