@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Project 2</title><!-- make your own with https://www.favicon.cc/-->
+        <link href="../favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+        <link rel="stylesheet" href="styles_project2.css">
+        <title>Project 2</title>
+		<script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+		<style type="text/css">
+            body{font-family:helvetica;}
+            #chart1{padding:0px;}
+            #title{}
+		</style>
+	</head>
+
+	<body class="grey darken-4">
+
+    <div class="nav z-depth-0">
+      <div class="section center">
+        <h3 class="white-text center"> 311 Vehicle Complaints in 2019 </h3>
+      </div> 
+    </div>
+      
+    <div class="section center">
+      <p class="grey-text">Click buttons to compare Manhattan Neighborhoods!</p>
+    </div>
+
+    <div class="section center">
+      <div class="row">
+        <div class="col s7 l3">
+                <button class="central_harlem" data-neighborhood="central_harlem">Central Harlem</button>
+                <button class="chelsea_hk" data-neighborhood="chelsea_hk">Chelsea & Hell's Kitchen</button>
+                <button class="east_harlem" data-neighborhood="east_harlem">East Harlem</button>
+                <button class="gp_mh" data-neighborhood="gp_mh">Gramercy Park & Murray Hill</button>
+                <button class="gv_soho" data-neighborhood="gv_soho">Greenwich Village & Soho</button>
+                <button class="lower_mn" data-neighborhood="lower_mn">Lower Manhattan</button>
+                <button class="lower_eastside" data-neighborhood="lower_eastside">Lower East Side</button>
+                <button class="upper_eastside" data-neighborhood="upper_eastside">Upper East Side</button>
+                <button class="upper_westside" data-neighborhood="upper_westside">Upper West Side</button>
+                <button class="inwood_wh" data-neighborhood="inwood_wh">Inwood & Washington Heights</button>
+         </div>
+        <div class="col s12 l6 push-l1">
+          <div id="chart1"></div>
+        </div>
+      </div>
+    </div>
+		<script type="text/javascript"> 
+            //added a button above in the html
+            //already had some css in the head section to style button
+            //SCROLL TO THE BOTTOM FOR YOUR HOMEWORK
+            d3.csv("neighborhoodDataSorted.csv")
+            .then(function(data){
+                
+                //below we call the chart 5 times, each with a different column, and we will see 5 charts, 1 for each column
+                drawChart(data,"Central Harlem")
+                d3.selectAll("circle")
+                    .attr("fill","#e6194B")
+                    d3.selectAll("text")
+                    .attr("fill","#e6194B")
+                
+                //here we select the button
+                d3.select(".central_harlem")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Central Harlem")//we update the data in the chart to column c3
+                    d3.selectAll("circle")
+                    .attr("fill","#e6194B")
+                    d3.selectAll("text")
+                    .attr("fill","#e6194B")
+                })
+                
+                d3.select(".chelsea_hk")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Chelsea & Hell's Kitchen")//we update the data in the chart to column c2
+                    d3.selectAll("circle")
+                    .attr("fill","#f58231")
+                    d3.selectAll("text")
+                    .attr("fill","#f58231")
+                })
+                
+                 d3.select(".east_harlem")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"East Harlem")//we update the data in the chart to column c3
+                    d3.selectAll("circle")
+                        .attr("fill","#ffe119")
+                    d3.selectAll("text")
+                    .attr("fill","#ffe119")
+                })
+                
+                 d3.select(".gp_mh")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Gramercy Park & Murray Hill")//we update the data in the chart to column c3
+                    d3.selectAll("circle")
+                        .attr("fill","#bfef45")
+                    d3.selectAll("text")
+                    .attr("fill","#bfef45")
+                })
+                
+                 d3.select(".gv_soho")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Greenwich Village & Soho")//we update the data in the chart to column c3
+                    d3.selectAll("circle") 
+                    .attr("fill","#3cb44b")
+                    d3.selectAll("text")
+                    .attr("fill","#3cb44b")
+                })
+                
+                d3.select(".lower_mn")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Lower Manhattan")//we update the data in the chart to column c3
+                    d3.selectAll("circle") 
+                    .attr("fill","#42d4f4")
+                    d3.selectAll("text")
+                    .attr("fill","#42d4f4")
+                })
+                
+                d3.select(".lower_eastside")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Lower East Side")//we update the data in the chart to column c3
+                    d3.selectAll("circle") 
+                    .attr("fill","#4363d8")
+                    d3.selectAll("text")
+                    .attr("fill","#4363d8")
+                })
+                
+                d3.select(".upper_eastside")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Upper East Side")//we update the data in the chart to column c3
+                    d3.selectAll("circle") 
+                    .attr("fill","#911eb4")
+                    d3.selectAll("text")
+                    .attr("fill","#911eb4")
+                })
+                
+                d3.select(".upper_westside")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Upper West Side")//we update the data in the chart to column c3
+                    d3.selectAll("circle") 
+                    .attr("fill","#f032e6")
+                    d3.selectAll("text")
+                    .attr("fill","#f032e6")
+                })
+                
+                d3.select(".inwood_wh")
+                .on("click",function(){//when it is clicked
+                    updateChart(data,"Inwood & Washington Heights")//we update the data in the chart to column c3
+                    d3.selectAll("circle") 
+                    .attr("fill","#9A6324")
+                    d3.selectAll("text")
+                    .attr("fill","#9A6324")
+                })
+            })
+            .catch(function(error){ console.log("error")})
+            
+            //this function with drawing code is the same all the way through
+            function drawChart(data,column){
+                var w = 700
+                var h = 400
+                var padding = 50
+                
+                var svg = d3.select("#chart1")
+                            .append("svg")
+                            .attr("width",w+padding*2)
+                            .attr("height",h+padding*2);
+                
+                var xScale = d3.scaleBand().domain(["January","February","March","April", "May","June","July","August","September","October","November","December"]).range([0,w]);
+                
+                var xAxis = d3.axisBottom()
+                    .scale(xScale);
+                
+                svg.append("g")
+    				.attr("class", "axis")
+                    .attr("transform", "translate("+padding+"," + (h + 10) + ")")
+                    .call(xAxis);
+                
+                var yScale = d3.scaleLinear().domain([0,550]).range([h,0]);
+                
+                var yAxis = d3.axisLeft()
+                    .scale(yScale);    
+                
+                svg.append("g")
+                    .attr("class", "axis")
+    				.attr("transform", "translate("+padding+",10)")
+    				.call(yAxis);   
+                
+                //d3 line path generator
+                var line = d3.line()
+                    .x(function(d){return xScale(d.month)+(padding*1.69)})
+                    .y(function(d){return yScale(d[column])+20});
+                
+                // line path element
+                var path = svg.append('path');
+                
+                //sort data based on date objects
+
+                
+                
+                //update path data
+                path.data([data])
+                    .attr('fill', 'none')
+                    .attr('stroke','#e6194B')
+                    .attr('stroke-opacity', '.5')
+                    .attr('stroke-width', 2)
+                    .attr('d', line);
+                
+                
+                
+                svg.selectAll("circle")
+                    .data(data)
+                    .enter()
+                    .append("circle")
+                    .attr("cy",function(d){
+                        return yScale(d[column])+20
+                    })
+                    .attr("cx",function(d,i){
+                        return xScale(d.month)+(padding*1.69)
+                    })
+                    .attr("r",5)
+                    .attr("fill","#197EC4")
+                
+                svg.selectAll(".label")
+                    .data(data)
+                    .enter()
+                    .append("text")
+                    .attr("class","label")
+                    .text(function(d){
+                        return d[column]})
+                    .attr("y",function(d){
+                        return yScale(d[column])+10
+                    })
+                    .attr("x",function(d,i){
+                        return xScale(d.month)+(padding*1.69)
+                    })
+                }
+                
+                
+                //START PAYING ATTENTION HERE
+                //new function for updating the data column
+                //a second function updating the data, the same as above making the circles 
+                //but instead of appending new bars, we select the existing and transform those.    
+                function updateChart(data,column){
+                    var w = 700
+                    var h = 400
+                    var padding = 50
+                    var yScale = d3.scaleLinear().domain([0,550]).range([h,0])
+                    var xScale = d3.scaleBand().domain(["January","February","March","April","May","June","July","August","September","October","November","December"]).range([0,w])
+                
+                    d3.selectAll("circle")
+                            .data(data)//data
+                            .transition()//transition, starting it here
+                            .delay(100)
+                            .duration(1250)//we are changing the circles over 1 second.
+                            .attr("cy",function(d){
+                                return yScale(d[column])+20//we are using a new column dictated by what you pass in when you call the function
+                            })
+                            .attr("cx",function(d,i){
+                                return xScale(d.month)+(padding*1.69)//still catagorized by borough
+                            })
+
+                        
+                    d3.selectAll(".label")
+                        .data(data)
+                            .transition()
+                            .delay(100)
+                            .duration(1250)
+                            .text(function(d){
+                                return d[column]})
+                            .attr("y",function(d){
+                                return yScale(d[column])+10
+                            })
+                            .attr("x",function(d,i){
+                                return xScale(d.month)+(padding*1.69)
+                            })
+
+
+                    
+                    
+                    }
+            
+            
+        //you will notice there is a lot of repetitiveness in the code, we will address that later. For now we write out everything for clarity
+		
+        //TODO: 3 things
+          
+          //part 1          
+        //the sample dataset has 5 value columns, c1 to c5, make 5 buttons that when clicked the chart transforms to that data
+        
+        //STEPS:
+        //Make a button for each column in your html
+        //select and add an click to each button, where the data will transform to using that column when clicked.
+        
+        //HINT: you will just be working in the html part and the portion within .then at the top. All the other code has already been written
+        
+          //part 2
+        //use duration and delay to animate the transitions better in the updateChart function
+        
+        //part 3
+        //also change the color as the transition occurs, a different color for each column
+        //HINT: 
+        //you will need to add a 3rd parameter to the updateChart function, 
+        //change that attribute to the things to change in the function
+        //and also call it with a different color each time.
+        
+        
+        </script>
+	</body>
+</html>
