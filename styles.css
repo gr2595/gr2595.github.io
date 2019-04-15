@@ -1,0 +1,14 @@
+body {
+  margin: 0px;
+  overflow: hidden;
+}
+
+.zipcode {
+  fill: lightblue;
+  stroke: black;
+  stroke-width: 0.2;
+}
+
+.zipcode:hover {
+  fill: red;
+}
