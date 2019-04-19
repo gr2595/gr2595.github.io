@@ -139,7 +139,7 @@
         .style("fill", "url(#linear-gradient)");
 
     svg.append("text").text("# of Stroke-Induced Deaths")
-        .attr("transform", "translate(50, 490)")
+        .attr("transform", "translate(47.5, 490)")
         .attr("font-family", "palatino")
         .attr("font-size", "12px")
         .attr("fill", "#404040");
