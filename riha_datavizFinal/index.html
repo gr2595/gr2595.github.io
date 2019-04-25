@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<!--    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">-->
+    <link rel="stylesheet" href="style/main.css">
+    <script src="https://unpkg.com/d3@5.6.0/dist/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script> 
+    <script src="https://unpkg.com/d3fc@14.0.27/build/d3fc.js"></script>
+    <title>Garrett Riha | Data Viz</title>
+</head>
+        <div id="moreInfo" class="hidden">
+            <p><strong><u>Zipcode: <span id="zipcode"></span></strong></u></p>
+            <p>Air Pollution Percentile: <span id="airPollution"></span></p>
+            <p>Asthma Percentile: <span id="asthmaPctl"></span></p>
+            <p>Cardiovascular Disease Percentile: <span id="cardioPctl"></span></p>
+            <p>Deaths Caused By Stroke Percentile: <span id="strokeDeaths"></span></p>
+            <p>Deaths Caused By Heart Disease Percentile: <span id="heartDisease"></span></p>
+        </div>
+<body>
+    <main>
+        <section id="main-title">
+            <h1 id="title">
+                Debate Continues Surrounding <br> Health Effects of Air Pollution
+            </h1>
+            <h2 id="author">By Garrett Riha</h2>
+            <div id="date-social" class="social">
+<!--
+                <div id="date">
+                    April 26, 2019
+                </div>   
+-->
+
+                <div class="article-media">
+                    <img id="telescope" src="images/los-angeles-air-pollution.jpg" alt="The Bicep2 telescope">
+                    <div class="caption-text">
+                        <span class="caption-subtext">
+                            Walter Bibikow / Getty Images--AWL Images RM
+                        </span>     
+                    </div>
+                </div>
+                
+        </section>               
+<!--
+        <div id="main-image">
+            <img src="images/los-angeles-air-pollution.jpg" alt="" id="hero">
+-->
+ 
+<!--
+            http://time.com/4448813/worst-smog-in-years-southern-california/
+            <div id="caption">
+-->
+        <section id="main-content">
+<!--
+                <div id="social">
+                    <a href="#" class="social">
+                        <span class="fa-stack">
+                            <i class="fas fa-circle fa-2x fa-stack-1x"></i>
+                            <i class="fab fa-facebook-f fa-stack-1x"></i>
+                        </span>
+                    </a>
+                    <a href="#" class="social">
+                        <span class="fa-stack">
+                            <i class="fas fa-circle fa-2x fa-stack-1x"></i>
+                            <i class="fab fa-twitter fa-stack-1x"></i>
+                        </span>
+
+                    </a>
+                    <a href="#" class="social">
+                        <span class="fa-stack">
+                            <i class="fas fa-circle fa-2x fa-stack-1x"></i>
+                            <i class="fas fa-envelope fa-stack-1x"></i>
+                        </span>
+                    </a>
+                    <a href="#" class="social">
+                        <span class="fa-stack">
+                            <i class="fas fa-circle fa-2x fa-stack-1x"></i>
+                            <i class="fas fa-share fa-stack-1x"></i>
+                        </span> 
+                    </a>
+                    <div class="right-social">
+                        <a href="#" class="social">
+                            <i class="far fa-bookmark fa-2x"></i>
+                        </a>
+                        <a href="#" class="social">
+                            <i class="far fa-comment-alt fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+-->
+            </div>
+            <br>
+            <div class="clear"></div>
+
+            <h1 id="section-title">
+                Motivation
+            </h1>
+            <br>
+            <div class="clear"></div>
+
+        
+            <div class="article">
+                <p class="text-content">
+                    On September 8, 2018, hundreds of thousands people around the globe gathered together in demonstration, demanding more effective and immediate climate action from their public officials. The demonstration that took place in San Francisco, CA was notable, not only because of its size but also because of a unique nuance that arose. Many in San Francisco were not only demanding climate action; they were also critiquing California's market-based climate laws [1].
+                </p>
+                
+                
+                <p class="text-content">
+                    In <i>Climate Change from the Streets</i> (forthcoming, Fall 2019), Dr. Michael Mendez, of the Yale School of Forestry and Environmental Studies, reports on his time as a public policy advisor, senior legislative consultant, and lobbyist, and as a gubernatorial appointee during the passage of California’s climate change laws. Through his book, Mendez argues, "that environmental protection and improving public health are inextricably linked and maintaining that link is key to advancing future climate action policies."  Dr. Mendez's research motivated me to assist in the mission of reframing climate change issues to be both a concern for the viability of our environment <i>as well as</i> current public health and equity [2].
+                </p>
+                <div class="article-media">
+                    <img id="telescope" src="images/riseforclimate1.png" alt="San Francisco's Rise for Climate Demonstration">
+                    <div class="caption-text">
+                        Marchers take part in climate change demonstration with banners that read, "Exit Climate Change" and "Support Community Solutions."
+                        <br>
+                        <span class="caption-subtext">
+                            Saul Gonzalez / KCRW
+                        </span>     
+                    </div>
+                </div>
+                
+                
+                <p class="text-content">
+                    On March 28, 2019, NPR's Rebecca Hersher reports on an Environmental Protection Agency hearing at which several members of the agency's powerful science panel expressed doubt regarding the "the long-established scientific consensus that air pollution can cause premature death." These statements raised a lot of attention not only because of the agency's important position of power, but because of the immediate response by former members of the EPA's now-disbanded Particulate Matter Review Board. These individuals critique that these statements come from "a very small community that have scientific credentials but are moving outside their area of expertise to try to raise doubt after doubt after doubt on issues where they really don't have the strongest competence" [3].
+                </p>
+                
+                <p class="text-content">
+                    This news has inspired me to frame my final product to follow an informative narrative that encourages the audience to explore the relationship between air pollution and public health, enabling them to develop their opinions and grow in their interest towards the issue.
+                </p>
+                
+                
+            <br>
+            <div class="clear"></div>
+
+            <h1 id="section-title">
+                The Data
+            </h1>
+            <br>
+            <div class="clear"></div>
+
+            
+            <div class="article">
+<!--                https://www.epa.gov/sciencematters/links-between-air-pollution-and-childhood-asthma
+https://www.who.int/airpollution/ambient/health-impacts/en/-->
+                <p class="text-content">
+                    Barring the recent controversy, the established science on the issue has regarded air pollution to be seriously detrimental to public health. In addition to reporting that researchers have generally found that exposure to fine particulate matter (PM2.5) is associated with the development of asthma and cardiovascular disease, the EPA has also shared a recent study from researchers form the Children's Center at Stanford University, which suggests that "air pollutants suppress genes that regulate the immune system’s ability to differentiate an allergen from a dangerous foreign substance, such as a virus or bacteria" [4]. The World Health Organization, the United Nations's agency specializing in public health, reports that ambient air pollution accounts for 24% of all deaths from stroke, 25% of all deaths and disease from coronary heart disease, and 43% of all deaths and disease from chronic obstructive pulmonary disease [5].  
+                </p>
+                <div class="article-media">
+                        <!--                        https://www.scientificamerican.com/article/bad-science-underlies-epa-rsquo-s-air-pollution-program/-->
+                    <img id="telescope" src="images/epa-news.jpg" alt="San Francisco's Rise for Climate Demonstration">
+                    <div class="caption-text">
+                        Doubts regarding the health impacts of air pollution from EPA members reach international attention. 
+                        <br>
+                        <span class="caption-subtext">
+                             F. Carter Smith / Getty Images
+                        </span>     
+                    </div>
+                </div>
+                <p class="text-content">
+                    Clearly, however, the scientific community has not entirely reached an agreement regarding the degree to which air pollution impacts public health. While the debate continues various organizations have been collecting data on air pollution and various health qualities that are often claimed to be worsened by air pollution. With much of this data public we can evaluate the various relationships for ourselves. Below are 5 maps of Los Angeles, CA demonstrating the levels of air pollution, asthma rates, cardiovascular disease rates, deaths from coronary heart disease, and deaths from stroke, each represented at the zip code level as a percentile of all of California. It's important to note that air pollution is measured as the annual mean PM2.5 concentration, which refers to atmospheric particulate matter (PM) that have a diameter of less than 2.5 micrometers, which is about 3% the diameter of a human hair. Additionally the air pollution percentile map is displayed twice, as the first map and the last map to allow direct comparison to each of the public health qualities.
+                </p>
+                
+                <div class="article-media">
+                    <img id="thumbnail" src="images/airpollution_screenshot.png" alt="LA Air Pollution">
+                    
+                    <img id="thumbnail" src="images/asthma-screenshot.png" style="float:right" alt="LA Asthma">
+                
+                    <div class="caption-text">
+                        <span class="caption-subtext">
+                             LA County Air Pollution
+                        </span>
+                        <span class="caption-subtext" style="float:right">
+                             LA County Asthma Rates
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="article-media">
+                    <img id="thumbnail" src="images/cardio-screenshot.png" alt="LA Cardiovascular Disease">
+                    
+                    <img id="thumbnail" src="images/stroke-screenshot.png" style="float:right" alt="LA Asthma">
+                    
+                    <div class="caption-text">
+                        <span class="caption-subtext">
+                             LA County Cardiovascular Rates
+                        </span>
+                        <span class="caption-subtext" style="float:right">
+                             LA County Deaths by Stroke Rates
+                        </span>
+                    </div>
+                </div>
+                <div class="article-media">
+                    <img id="thumbnail" src="images/heart-disease-screenshot.png" alt="LA Death by Heart Disease">
+                    
+                    <img id="thumbnail" src="images/airpollution_screenshot.png" style="float:right" alt="LA Asthma">
+                    
+                    <div class="caption-text">
+                        <span class="caption-subtext">
+                             LA County Deaths by Heart Disease Rates
+                        </span>
+                        <span class="caption-subtext" style="float:right">
+                             LA County Air Pollution
+                        </span>
+                    </div>
+                </div>
+                
+                <p class="text-content">
+                    A correlation between air pollution and asthma and cardiovascular rates can be seen in these maps. However the asthma and cardiovascular rates are quite high in Antelope Valley (upper right portion of map), which experiences comparatively less air pollution than West Los Angeles (coastal portion of land that sits just north, rather than east, of the ocean). This phenomenon raises interest in the socioeconomic and cultural factors that lead to asthma and cardiovascular rates, with the major towns of Antelope Valley (Lancaster and Palmdale) resting in deep contrast to the socioeconomic and cultural norms of the major towns of West Los Angeles (Malibu and Calabasas). It should also be noted that there seems to be no relationship between air pollution and the rates of deaths caused by stroke and heart disease. 
+                </p>               
+                <p class="text-content">
+                    To explore these relationships further, check out the interactive maps below. Please note these maps provide for zooming (via scrolling), panning (via dragging), and a tooltip appears to the left of the map, describing the various zip code attributes, when the cursor hovers over a zip code.
+                </p>
+
+
+
+            
+
+                
+            <h1 id="section-title">
+                Air Pollution
+            </h1>
+            <br>
+            <div class="clear"></div>                
+                <svg id= "area1" style="fill: blue" width="700" height="600"> 
+                </svg>
+                <script src="AirPollution.js"></script>
+                
+
+            <h1 id="section-title">
+                Asthma
+            </h1>
+            <br>
+            <div class="clear"></div>
+                
+                <svg id= "area3" style="fill: blue" width="700" height="600"> 
+                </svg>
+                <script src="Asthma.js"></script>
+
+                
+            <h1 id="section-title">
+                Cardiovascular Disease
+            </h1>
+            <br>
+            <div class="clear"></div>
+
+                
+                <svg id= "area2" style="fill: blue" width="700" height="600"> 
+                </svg>
+                <script src="Cardio.js"></script>
+
+            <h1 id="section-title">
+                Deaths Caused by Stroke
+            </h1>
+            <br>
+            <div class="clear"></div>
+
+                
+                <svg id= "area5" style="fill: blue" width="700" height="600"> 
+                </svg>
+                <script src="Stroke.js"></script>
+                
+            <h1 id="section-title">
+                Deaths Caused by Heart Disease
+            </h1>
+            <br>
+            <div class="clear"></div>
+
+                
+                <svg id= "area4" style="fill: blue" width="700" height="600"> 
+                </svg>
+                <script src="HeartDisease.js"></script>
+
+            <br>
+            <div class="clear"></div>
+
+            <h1 id="section-title">
+                Reflection
+            </h1>
+            <br>
+            <div class="clear"></div>
+
+                <p class="text-content">
+                    While I believe these visualizations do a satisfactory job in meeting the aim to encourage the audience to consider the public health impacts of air pollution, I feel that it falls short of providing the audience a truly helpful resource that sufficiently answers the larger question of what relationship exists between air pollution and public health.  
+                    
+                    I would like to also include a scatter plot demonstrating this relationship, which I think will be more helpful in answer that larger question. 
+                    
+                    I would also like to make some additions to the current visualizations. First, I would like to overlay county lines and build an interactivity that communicates the name of county of the zip code that the user is hovering over. Second, I would like to add a background map of California to fill in the shape of the state. Third, I would like to make some significant aesthetic changes to the information tooltip to make it feel like an important object that belongs on the page, rather than an auxiliary add-on. Finally, I'd like to reconsider the layout of the interactive maps, and organize them in a way that allows the user to view each of them at once. 
+                </p>
+            <br>
+            <div class="clear"></div>
+            <h1 id="section-title">
+                Thank You.
+            </h1>
+
+            <br>
+            <div class="clear"></div>
+
+            <br>
+            <div class="clear"></div>
+            
+            <br>
+            <div class="clear"></div>
+                
+            <h1 id="title-ref">
+                References
+            </h1>
+            <div class="clear"></div>
+                <p class="text-content-ref">
+                    California Zip Code Shapefile: "ca_california_zip_codes_geo.min.json", <i>Open Data Delaware.</i> https://github.com/OpenDataDE/State-zip-code-GeoJSON.  
+                </p>
+                <p class="text-content-ref">
+                    California Air Pollution, Asthma, and Cardiovascular Data: "CalEnviroScreen 3.0 Data", <i>California Office of Environmental Health Hazard Assessment.</i>https://oehha.ca.gov/calenviroscreen/maps-data.   
+                </p>
+                <p class="text-content-ref">
+                    California Deaths by Stroke and Heart Disease: "Leading Causes of Death by Zip Code 1999 - Current", <i>California Health & Human Services Agency.</i>https://data.chhs.ca.gov/dataset/leading-causes-of-death-by-zip-code.   
+                </p>
+                <p class="text-content-ref">
+                    [1] "Rise for Climate", <i>Rise for Climate Action.</i>https://riseforclimate.org/.   
+                </p>
+                
+                <p class="text-content-ref">
+                    [2] "Research", <i>Michael Mendez.</i>http://www.michaelanthonymendez.com/research.html.   
+                </p>
+                <p class="text-content-ref">
+                    [3] Rebecca Hersher. "EPA Science Panel Considering Guidelines That Upend Basic Air Pollution Science", <i>National Public Radio.</i>https://www.npr.org/2019/03/28/707166015/epa-science-panel-considering-guidelines-that-upend-basic-air-pollution-science.   
+                </p>
+                <p class="text-content-ref">
+                    [4] "The Links Between Air Pollution and Childhood Asthma", <i>United States Environmental Protection Agency.</i>https://www.epa.gov/sciencematters/links-between-air-pollution-and-childhood-asthma.   
+                </p>
+                <p class="text-content-ref">
+                    [5] "Ambient air pollution: Health impacts", <i>World Health Organization.</i>https://www.who.int/airpollution/ambient/health-impacts/en/.   
+                </p>
+
+            </section>
+        </section>
+
+    </main>
+    <footer>
+        <hr>
+        <div id="footer-copyright">
+                <ul class="copyright">
+                <li class="copyright-li">
+                    <a href="#" class="footer-link">A Garrett Riha Project</a>
+                </li>
+                <li class="copyright-li">
+                    <a href="#" class="footer-link">For Data Viz for Architecture, Urbanism, and the Humanities</a>
+                </li>
+                <li class="copyright-li">
+                    <a href="#" class="footer-link">Taught by Jia Zheng @ Columbia University GSAPP</a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>
